@@ -1,5 +1,6 @@
 export const environment = {
   production: true,
-  supabaseUrl: '',
-  supabaseAnonKey: '',
+  supabaseUrl: 'https://enpaklijrsldutsqchee.supabase.co',
+  supabaseAnonKey:
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVucGFrbGlqcnNsZHV0c3FjaGVlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk3OTc5MjcsImV4cCI6MjA4NTM3MzkyN30.1ON5b0EAK9IQkrYNTeixCnZLfv9jDi7FfUHprqNKbBg',
 };
