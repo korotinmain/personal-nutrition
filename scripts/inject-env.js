@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const root = path.resolve(__dirname, '..');
-const templatePath = path.join(root, 'src/environments/environment.template.ts');
+const templatePath = path.join(root, 'src/environments/environment.production.ts');
 const targets = [{ path: path.join(root, 'src/environments/environment.ts'), production: true }];
 
 const requiredVars = ['SUPABASE_URL', 'SUPABASE_ANON_KEY'];
