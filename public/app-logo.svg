@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" role="img" aria-label="Personal Nutrition logo">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#99f6e4"/>
+      <stop offset="1" stop-color="#14b8a6"/>
+    </linearGradient>
+    <linearGradient id="plate" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f8fafc"/>
+      <stop offset="1" stop-color="#e2e8f0"/>
+    </linearGradient>
+    <style>
+      .wordmark {
+        font-family: "Poppins", "Nunito", "Segoe UI", sans-serif;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        fill: #0f172a;
+      }
+      .tagline {
+        font-family: "Poppins", "Nunito", "Segoe UI", sans-serif;
+        font-weight: 500;
+        letter-spacing: 0.4px;
+        fill: #0f766e;
+      }
+    </style>
+  </defs>
+
+  <rect x="20" y="40" width="320" height="320" rx="90" fill="url(#bg)"/>
+  <circle cx="180" cy="200" r="115" fill="url(#plate)" stroke="#0f766e" stroke-width="10"/>
+  <circle cx="180" cy="200" r="68" fill="#ffffff" opacity="0.7"/>
+  <path d="M182 132c36 8 64 40 64 78-36-2-70-24-86-56-8-14 2-22 22-22z" fill="#16a34a"/>
+  <path d="M172 150c10 24 36 46 66 54" fill="none" stroke="#0f766e" stroke-width="8" stroke-linecap="round"/>
+  <g stroke="#0f766e" stroke-width="9" stroke-linecap="round">
+    <line x1="96" y1="140" x2="96" y2="252"/>
+    <line x1="112" y1="140" x2="112" y2="242"/>
+    <line x1="128" y1="140" x2="128" y2="252"/>
+    <line x1="96" y1="252" x2="128" y2="252"/>
+  </g>
+
+  <text class="wordmark" x="380" y="190" font-size="86">Personal Nutrition</text>
+  <text class="tagline" x="380" y="250" font-size="32">Meal planning for two</text>
+</svg>

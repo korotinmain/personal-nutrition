@@ -1,0 +1,244 @@
+import { Component, inject, signal } from '@angular/core';
+import { AuthService } from '../../../core/auth/auth.service';
+import { GoogleLoginButtonComponent } from '../components/google-login-button';
+import { supabase } from '../../../core/auth/supabase.client';
+
+@Component({
+  selector: 'app-login',
+  imports: [GoogleLoginButtonComponent],
+  template: `
+    <div
+      class="min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950"
+    >
+      <!-- Background decorations -->
+      <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <div
+          class="absolute -top-40 -right-40 w-80 h-80 bg-emerald-300/20 dark:bg-emerald-500/10 rounded-full blur-3xl"
+        ></div>
+        <div
+          class="absolute -bottom-40 -left-40 w-80 h-80 bg-teal-300/20 dark:bg-teal-500/10 rounded-full blur-3xl"
+        ></div>
+      </div>
+
+      <div class="relative min-h-screen flex items-center justify-center p-4">
+        <div class="w-full max-w-md">
+          @if (!supabase) {
+            <!-- Configuration Warning -->
+            <div
+              class="bg-white dark:bg-slate-900 rounded-3xl shadow-xl border border-slate-200 dark:border-slate-800 p-8"
+            >
+              <div class="flex items-start gap-4 mb-6">
+                <div
+                  class="flex-shrink-0 w-10 h-10 rounded-full bg-amber-100 dark:bg-amber-900 flex items-center justify-center"
+                >
+                  <span class="text-xl">⚙️</span>
+                </div>
+                <div>
+                  <h3 class="font-bold text-lg text-amber-900 dark:text-amber-200 mb-2">
+                    Configuration Required
+                  </h3>
+                  <p class="text-sm text-amber-800 dark:text-amber-300">
+                    Supabase credentials are not configured.
+                  </p>
+                </div>
+              </div>
+              <ol
+                class="text-sm text-slate-700 dark:text-slate-300 space-y-3 list-decimal list-inside"
+              >
+                <li>Create a Supabase project at supabase.com</li>
+                <li>Get your Project URL and anon key</li>
+                <li>
+                  Update
+                  <code class="bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded text-xs font-mono"
+                    >environment.development.ts</code
+                  >
+                </li>
+                <li>Restart the dev server</li>
+              </ol>
+            </div>
+          } @else {
+            <!-- Main Card -->
+            <div
+              class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-slate-200/50 dark:border-slate-700/50 overflow-hidden"
+            >
+              <!-- Header -->
+              <div class="text-center pt-12 pb-8 px-8">
+                <div
+                  class="mb-6 inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 shadow-lg shadow-emerald-500/30 dark:shadow-emerald-500/20"
+                >
+                  <svg
+                    class="w-10 h-10 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                    ></path>
+                  </svg>
+                </div>
+                <h1 class="text-3xl font-bold text-slate-900 dark:text-white mb-2">Welcome back</h1>
+                <p class="text-slate-600 dark:text-slate-400">
+                  Sign in to continue to Personal Nutrition
+                </p>
+              </div>
+
+              <!-- Content -->
+              <div class="px-8 pb-8">
+                @if (errorMessage()) {
+                  <div
+                    class="mb-6 rounded-2xl bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 p-4"
+                  >
+                    <div class="flex items-start gap-3">
+                      <svg
+                        class="w-5 h-5 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                          clip-rule="evenodd"
+                        ></path>
+                      </svg>
+                      <p class="text-sm text-red-800 dark:text-red-200 flex-1">
+                        {{ errorMessage() }}
+                      </p>
+                    </div>
+                  </div>
+                }
+
+                <app-google-login-button
+                  [loading]="isLoading()"
+                  [disabled]="isLoading()"
+                  (clicked)="signInWithGoogle()"
+                ></app-google-login-button>
+
+                <!-- Features -->
+                <div class="mt-8 pt-8 border-t border-slate-200 dark:border-slate-700">
+                  <p
+                    class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-4 text-center"
+                  >
+                    What you'll get
+                  </p>
+                  <div class="space-y-3">
+                    <div class="flex items-center gap-3">
+                      <div
+                        class="flex-shrink-0 w-8 h-8 rounded-lg bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center"
+                      >
+                        <svg
+                          class="w-4 h-4 text-emerald-600 dark:text-emerald-400"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                            clip-rule="evenodd"
+                          ></path>
+                        </svg>
+                      </div>
+                      <span class="text-sm text-slate-700 dark:text-slate-300"
+                        >Meal planning for two people</span
+                      >
+                    </div>
+                    <div class="flex items-center gap-3">
+                      <div
+                        class="flex-shrink-0 w-8 h-8 rounded-lg bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center"
+                      >
+                        <svg
+                          class="w-4 h-4 text-emerald-600 dark:text-emerald-400"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                            clip-rule="evenodd"
+                          ></path>
+                        </svg>
+                      </div>
+                      <span class="text-sm text-slate-700 dark:text-slate-300"
+                        >Nutrition tracking & insights</span
+                      >
+                    </div>
+                    <div class="flex items-center gap-3">
+                      <div
+                        class="flex-shrink-0 w-8 h-8 rounded-lg bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center"
+                      >
+                        <svg
+                          class="w-4 h-4 text-emerald-600 dark:text-emerald-400"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                            clip-rule="evenodd"
+                          ></path>
+                        </svg>
+                      </div>
+                      <span class="text-sm text-slate-700 dark:text-slate-300"
+                        >Smart shopping lists</span
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Footer -->
+              <div
+                class="px-8 py-6 bg-slate-50/50 dark:bg-slate-800/30 border-t border-slate-200/50 dark:border-slate-700/50"
+              >
+                <p class="text-xs text-center text-slate-500 dark:text-slate-400 leading-relaxed">
+                  By signing in, you agree to our
+                  <a href="#" class="text-emerald-600 dark:text-emerald-400 hover:underline"
+                    >Terms</a
+                  >
+                  and
+                  <a href="#" class="text-emerald-600 dark:text-emerald-400 hover:underline"
+                    >Privacy Policy</a
+                  >
+                </p>
+              </div>
+            </div>
+
+            <!-- Help text -->
+            <p class="text-center text-sm text-slate-600 dark:text-slate-400 mt-6">
+              First time here?
+              <span class="text-emerald-600 dark:text-emerald-400 font-medium"
+                >Get started in seconds</span
+              >
+            </p>
+          }
+        </div>
+      </div>
+    </div>
+  `,
+  styles: ``,
+})
+export class LoginPage {
+  private readonly authService = inject(AuthService);
+
+  readonly supabase = supabase;
+  isLoading = signal(false);
+  errorMessage = signal<string | null>(null);
+
+  async signInWithGoogle(): Promise<void> {
+    this.isLoading.set(true);
+    this.errorMessage.set(null);
+
+    try {
+      await this.authService.signInWithGoogle();
+    } catch (error) {
+      console.error('Login error:', error);
+      this.errorMessage.set(
+        'Failed to sign in with Google. Please try again or contact support if the problem persists.',
+      );
+      this.isLoading.set(false);
+    }
+  }
+}

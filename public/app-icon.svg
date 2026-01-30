@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Personal Nutrition app icon">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#99f6e4"/>
+      <stop offset="1" stop-color="#14b8a6"/>
+    </linearGradient>
+    <linearGradient id="plate" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f8fafc"/>
+      <stop offset="1" stop-color="#e2e8f0"/>
+    </linearGradient>
+  </defs>
+  <rect x="24" y="24" width="464" height="464" rx="112" fill="url(#bg)"/>
+  <circle cx="256" cy="256" r="150" fill="url(#plate)" stroke="#0f766e" stroke-width="14"/>
+  <circle cx="256" cy="256" r="90" fill="#ffffff" opacity="0.7"/>
+  <path d="M258 170c48 10 86 52 86 104-48-2-94-32-114-74-10-20 2-30 28-30z" fill="#16a34a"/>
+  <path d="M248 194c14 32 48 62 88 72" fill="none" stroke="#0f766e" stroke-width="10" stroke-linecap="round"/>
+  <g stroke="#0f766e" stroke-width="12" stroke-linecap="round">
+    <line x1="148" y1="176" x2="148" y2="324"/>
+    <line x1="168" y1="176" x2="168" y2="310"/>
+    <line x1="188" y1="176" x2="188" y2="324"/>
+    <line x1="148" y1="324" x2="188" y2="324"/>
+  </g>
+</svg>
