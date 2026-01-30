@@ -50,7 +50,7 @@ import { supabase } from '../../../core/auth/supabase.client';
                 <li>
                   Update
                   <code class="bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded text-xs font-mono"
-                    >environment.development.ts</code
+                    >environment.local.ts</code
                   >
                 </li>
                 <li>Restart the dev server</li>
