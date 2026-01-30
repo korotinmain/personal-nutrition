@@ -63,22 +63,8 @@ import { supabase } from '../../../core/auth/supabase.client';
             >
               <!-- Header -->
               <div class="text-center pt-12 pb-8 px-8">
-                <div
-                  class="mb-6 inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 shadow-lg shadow-emerald-500/30 dark:shadow-emerald-500/20"
-                >
-                  <svg
-                    class="w-10 h-10 text-white"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                    ></path>
-                  </svg>
+                <div class="mb-6">
+                  <img src="/app-icon.svg" alt="Personal Nutrition" class="w-20 h-20 mx-auto" />
                 </div>
                 <h1 class="text-3xl font-bold text-slate-900 dark:text-white mb-2">Welcome back</h1>
                 <p class="text-slate-600 dark:text-slate-400">
