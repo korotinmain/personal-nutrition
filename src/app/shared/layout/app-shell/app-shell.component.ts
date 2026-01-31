@@ -18,14 +18,14 @@ export class AppShellComponent {
   readonly sessionStore = inject(SessionStore);
 
   showUserMenu = signal(false);
-  
+
   currentRoute = toSignal(
     this.router.events.pipe(
       filter((event) => event instanceof NavigationEnd),
       map(() => this.router.url),
-      startWith(this.router.url)
+      startWith(this.router.url),
     ),
-    { initialValue: this.router.url }
+    { initialValue: this.router.url },
   );
 
   toggleUserMenu(): void {
