@@ -27,7 +27,9 @@
             >
               <div class="p-2">
                 @if (sessionStore.user(); as user) {
-                  <div class="px-2 py-1.5 text-sm text-muted-foreground border-b border-border mb-1">
+                  <div
+                    class="px-2 py-1.5 text-sm text-muted-foreground border-b border-border mb-1"
+                  >
                     {{ user.email }}
                   </div>
                 }
