@@ -1,4 +1,4 @@
-import { Component, inject, signal, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SessionStore } from '../../../core/auth/session.store';
 import { SpinnerComponent } from '../../../shared/ui/spinner/spinner.component';
@@ -10,6 +10,7 @@ import { supabase } from '../../../core/auth/supabase.client';
   imports: [SpinnerComponent, ButtonComponent],
   templateUrl: './callback.page.html',
   styleUrl: './callback.page.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CallbackPage implements OnInit {
   private readonly sessionStore = inject(SessionStore);

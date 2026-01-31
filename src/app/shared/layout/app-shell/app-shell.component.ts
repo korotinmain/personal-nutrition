@@ -1,5 +1,7 @@
-import { Component, inject, signal } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { filter, map, startWith } from 'rxjs/operators';
 import { AuthService } from '../../../core/auth/auth.service';
 import { SessionStore } from '../../../core/auth/session.store';
 
@@ -8,6 +10,7 @@ import { SessionStore } from '../../../core/auth/session.store';
   imports: [RouterOutlet],
   templateUrl: './app-shell.component.html',
   styleUrl: './app-shell.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppShellComponent {
   private readonly authService = inject(AuthService);
@@ -15,13 +18,15 @@ export class AppShellComponent {
   readonly sessionStore = inject(SessionStore);
 
   showUserMenu = signal(false);
-  currentRoute = signal(this.router.url);
-
-  constructor() {
-    this.router.events.subscribe(() => {
-      this.currentRoute.set(this.router.url);
-    });
-  }
+  
+  currentRoute = toSignal(
+    this.router.events.pipe(
+      filter((event) => event instanceof NavigationEnd),
+      map(() => this.router.url),
+      startWith(this.router.url)
+    ),
+    { initialValue: this.router.url }
+  );
 
   toggleUserMenu(): void {
     this.showUserMenu.update((value) => !value);
@@ -40,9 +45,10 @@ export class AppShellComponent {
     this.router.navigate([path]);
   }
 
-  getInitials(email: string): string {
+  getInitials = computed(() => {
+    const email = this.sessionStore.user()?.email || '';
     return email.charAt(0).toUpperCase();
-  }
+  });
 
   getLinkClasses(isActive: boolean): string {
     const baseClasses = 'py-3 px-1 border-b-2 transition-colors text-sm font-medium';

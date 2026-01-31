@@ -10,19 +10,23 @@
         <div class="relative">
           <button
             (click)="toggleUserMenu()"
+            [attr.aria-expanded]="showUserMenu()"
+            aria-label="User menu"
+            aria-haspopup="true"
             class="flex items-center gap-2 rounded-full hover:opacity-80 transition-opacity"
           >
             @if (sessionStore.user(); as user) {
               <div
                 class="h-8 w-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-sm font-medium"
               >
-                {{ getInitials(user.email || '') }}
+                {{ getInitials() }}
               </div>
             }
           </button>
 
           @if (showUserMenu()) {
             <div
+              role="menu"
               class="absolute right-0 mt-2 w-48 rounded-md border border-border bg-card shadow-lg z-50"
             >
               <div class="p-2">
@@ -35,6 +39,7 @@
                 }
                 <button
                   (click)="signOut()"
+                  role="menuitem"
                   class="w-full text-left px-2 py-1.5 text-sm rounded hover:bg-accent transition-colors"
                 >
                   Sign out

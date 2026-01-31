@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { SessionStore } from '../../../core/auth/session.store';
 import { CardComponent } from '../../../shared/ui/card/card.component';
 
@@ -7,12 +7,13 @@ import { CardComponent } from '../../../shared/ui/card/card.component';
   imports: [CardComponent],
   templateUrl: './home.page.html',
   styleUrl: './home.page.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomePage {
   readonly sessionStore = inject(SessionStore);
 
-  getUserName(): string {
+  userName = computed(() => {
     const user = this.sessionStore.user();
     return user?.email?.split('@')[0] || 'there';
-  }
+  });
 }

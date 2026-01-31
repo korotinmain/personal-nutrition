@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { AuthService } from '../../../core/auth/auth.service';
 import { GoogleLoginButtonComponent } from '../components/google-login-button';
 import { supabase } from '../../../core/auth/supabase.client';
@@ -8,6 +8,7 @@ import { supabase } from '../../../core/auth/supabase.client';
   imports: [GoogleLoginButtonComponent],
   templateUrl: './login.page.html',
   styleUrl: './login.page.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginPage {
   private readonly authService = inject(AuthService);

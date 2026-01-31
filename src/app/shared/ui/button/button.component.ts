@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
 import { cn } from '../../utils/cn';
 
 type ButtonVariant = 'primary' | 'secondary' | 'ghost';
@@ -8,6 +8,7 @@ type ButtonSize = 'sm' | 'md';
   selector: 'app-button',
   templateUrl: './button.component.html',
   styleUrl: './button.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ButtonComponent {
   variant = input<ButtonVariant>('primary');
@@ -19,7 +20,7 @@ export class ButtonComponent {
 
   clicked = output<void>();
 
-  buttonClasses = (): string => {
+  buttonClasses = computed(() => {
     const baseClasses =
       'inline-flex items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50';
 
@@ -35,7 +36,7 @@ export class ButtonComponent {
     };
 
     return cn(baseClasses, variantClasses[this.variant()], sizeClasses[this.size()], this.class());
-  };
+  });
 
   handleClick(): void {
     if (!this.disabled() && !this.loading()) {
