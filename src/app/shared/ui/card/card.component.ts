@@ -3,24 +3,8 @@ import { cn } from '../../utils/cn';
 
 @Component({
   selector: 'app-card',
-  template: `
-    <div [class]="cardClasses()">
-      @if (header()) {
-        <div class="border-b border-border p-6">
-          <ng-content select="[header]"></ng-content>
-        </div>
-      }
-      <div class="p-6">
-        <ng-content></ng-content>
-      </div>
-      @if (footer()) {
-        <div class="border-t border-border p-6">
-          <ng-content select="[footer]"></ng-content>
-        </div>
-      }
-    </div>
-  `,
-  styles: ``,
+  templateUrl: './card.component.html',
+  styleUrl: './card.component.scss',
 })
 export class CardComponent {
   class = input<string>('');

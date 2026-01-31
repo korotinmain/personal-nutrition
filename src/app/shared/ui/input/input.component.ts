@@ -3,15 +3,8 @@ import { cn } from '../../utils/cn';
 
 @Component({
   selector: 'app-input',
-  template: `
-    <input
-      [type]="type()"
-      [placeholder]="placeholder()"
-      [disabled]="disabled()"
-      [class]="inputClasses()"
-    />
-  `,
-  styles: ``,
+  templateUrl: './input.component.html',
+  styleUrl: './input.component.scss',
 })
 export class InputComponent {
   type = input<string>('text');
